@@ -1,7 +1,7 @@
 <?php
 
 // Test for icu4x_segmenter function
-if (!extension_loaded('php-ext-icu4x')) {
+if (!extension_loaded('icu4x')) {
     echo "ICU4X extension not loaded\n";
     exit(1);
 }
@@ -56,8 +56,8 @@ try {
     $segmenter = new ICU4X\Segmenter('grapheme');
     $class_iterator = $segmenter->segment($text1);
     
-    $function_segments = $iterator1->to_array();
-    $class_segments = $class_iterator->to_array();
+    $function_segments = iterator_to_array($iterator1);
+    $class_segments = iterator_to_array($class_iterator);
     
     echo "Function API segments: " . count($function_segments) . "\n";
     echo "Class API segments: " . count($class_segments) . "\n";

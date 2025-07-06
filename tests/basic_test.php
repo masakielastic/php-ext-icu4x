@@ -1,7 +1,7 @@
 <?php
 
 // Basic test for ICU4X PHP extension
-if (!extension_loaded('php-ext-icu4x')) {
+if (!extension_loaded('icu4x')) {
     echo "ICU4X extension not loaded\n";
     echo "Available extensions:\n";
     print_r(get_loaded_extensions());
