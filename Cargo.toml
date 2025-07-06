@@ -1,0 +1,11 @@
+[package]
+name = "php-ext-icu4x"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ext-php-rs = "0.14.0"
+icu_segmenter = "2.0"
