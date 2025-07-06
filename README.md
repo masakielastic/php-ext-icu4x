@@ -35,7 +35,7 @@ cd php-ext-icu4x
 3. Install the extension:
 ```bash
 # Copy the shared library to your PHP extensions directory
-sudo cp target/release/libphp_ext_icu4x.so /usr/lib/php/extensions/
+sudo cp target/release/libicu4x.so /usr/lib/php/extensions/
 
 # Add to php.ini
 echo "extension=php_ext_icu4x" >> /etc/php/8.2/cli/php.ini
@@ -179,10 +179,10 @@ Run the test suite:
 
 ```bash
 # Basic functionality test
-php -d extension=target/release/libphp_ext_icu4x.so tests/basic_test.php
+php -d extension=target/release/libicu4x.so tests/basic_test.php
 
 # Function API test
-php -d extension=target/release/libphp_ext_icu4x.so tests/function_test.php
+php -d extension=target/release/libicu4x.so tests/function_test.php
 ```
 
 ## Performance
@@ -221,7 +221,7 @@ cargo build
 
 # Run tests
 ./build.sh
-php -d extension=target/release/libphp_ext_icu4x.so tests/basic_test.php
+php -d extension=target/release/libicu4x.so tests/basic_test.php
 ```
 
 ## Commit Message Convention

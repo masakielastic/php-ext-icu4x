@@ -1,5 +1,5 @@
 [package]
-name = "php-ext-icu4x"
+name = "icu4x"
 version = "0.1.0"
 edition = "2021"
 

@@ -551,6 +551,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6dbf3de79e51f3d586ab4cb9d5c3e2c14aa28ed23d180cf89b4df0454a69cc87"
 
 [[package]]
+name = "icu4x"
+version = "0.1.0"
+dependencies = [
+ "ext-php-rs",
+ "icu_segmenter",
+]
+
+[[package]]
 name = "icu_collections"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -944,14 +952,6 @@ name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3148f5046208a5d56bcfc03053e3ca6334e51da8dfb19b6cdc8b306fae3283e"
-
-[[package]]
-name = "php-ext-icu4x"
-version = "0.1.0"
-dependencies = [
- "ext-php-rs",
- "icu_segmenter",
-]
 
 [[package]]
 name = "pkg-config"
