@@ -38,7 +38,7 @@ cd php-ext-icu4x
 sudo cp target/release/libicu4x.so /usr/lib/php/extensions/
 
 # Add to php.ini
-echo "extension=php_ext_icu4x" >> /etc/php/8.2/cli/php.ini
+echo "extension=icu4x" >> /etc/php/8.2/cli/php.ini
 ```
 
 ## Usage
