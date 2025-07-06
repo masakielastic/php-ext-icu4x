@@ -1,0 +1,32 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# PHP extension build artifacts
+*.so
+*.dylib
+*.dll
+*.la
+*.lo
+*.o
+*.deps
+.libs/
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PHP test artifacts
+*.out
+*.exp
+*.diff
+*.sh
+
+# Debug files
+*.dSYM/
+core
