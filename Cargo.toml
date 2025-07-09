@@ -9,3 +9,4 @@ crate-type = ["cdylib"]
 [dependencies]
 ext-php-rs = "0.14.0"
 icu_segmenter = "2.0"
+icu_properties = { version = "2.0", features = ["compiled_data"] }

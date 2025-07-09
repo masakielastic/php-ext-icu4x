@@ -5,6 +5,7 @@ A PHP extension for Unicode text segmentation using ICU4X, built with ext-php-rs
 ## Features
 
 - **Grapheme Cluster Segmentation**: Proper handling of Unicode text including emojis and complex scripts
+- **East Asian Width Support**: Calculate display width of Unicode characters for proper text layout
 - **Multiple APIs**: Both object-oriented class API and functional API
 - **SPL Interface Support**: Full integration with PHP's Standard PHP Library interfaces
 - **ICU4X 2.0**: Built on the latest ICU4X Unicode library
@@ -103,6 +104,26 @@ Segments the input text into grapheme clusters.
 
 **Returns:** `ICU4X\SegmentIterator` - An iterator over text segments
 
+#### `icu4x_eaw_width(string $char, ?string $locale = null): int`
+
+Calculate the display width of a Unicode character based on its East Asian Width property.
+
+**Parameters:**
+- `$char` (string): The character to calculate width for (only first character is used)
+- `$locale` (string|null, optional): Locale for ambiguous character handling
+
+**Returns:** `int` - Display width (1 or 2), or -1 on error
+
+**Examples:**
+```php
+echo icu4x_eaw_width('A');        // 1 (Narrow)
+echo icu4x_eaw_width('あ');       // 2 (Wide)
+echo icu4x_eaw_width('ｱ');        // 1 (Halfwidth)
+echo icu4x_eaw_width('Ａ');       // 2 (Fullwidth)
+echo icu4x_eaw_width('§');        // 1 (Ambiguous, default)
+echo icu4x_eaw_width('§', 'ja');  // 2 (Ambiguous, Japanese locale)
+```
+
 ### Class API
 
 #### `ICU4X\Segmenter`
@@ -173,16 +194,61 @@ var_dump($iterator instanceof Countable);        // true
 var_dump($iterator instanceof IteratorAggregate); // true
 ```
 
+### East Asian Width Examples
+
+```php
+// Basic width calculation
+$text = "Hello世界";
+$width = 0;
+for ($i = 0; $i < mb_strlen($text); $i++) {
+    $char = mb_substr($text, $i, 1);
+    $width += icu4x_eaw_width($char);
+}
+echo "Display width: $width\n"; // 9
+
+// Locale-specific handling of ambiguous characters
+$ambiguous = "§±×÷";
+echo "Default: ";
+for ($i = 0; $i < mb_strlen($ambiguous); $i++) {
+    $char = mb_substr($ambiguous, $i, 1);
+    echo icu4x_eaw_width($char);
+}
+echo "\n"; // 1111
+
+echo "Japanese: ";
+for ($i = 0; $i < mb_strlen($ambiguous); $i++) {
+    $char = mb_substr($ambiguous, $i, 1);
+    echo icu4x_eaw_width($char, 'ja');
+}
+echo "\n"; // 2222
+```
+
 ## Testing
 
 Run the test suite:
 
 ```bash
 # Basic functionality test
-php -d extension=target/release/libicu4x.so tests/basic_test.php
+php -d extension=target/debug/libicu4x.so tests/basic_test.php
 
 # Function API test
-php -d extension=target/release/libicu4x.so tests/function_test.php
+php -d extension=target/debug/libicu4x.so tests/function_test.php
+
+# East Asian Width test
+php -d extension=target/debug/libicu4x.so tests/eaw_width_test.php
+
+# Demo scripts
+php -d extension=target/debug/libicu4x.so demo_eaw_width.php
+```
+
+For release builds:
+
+```bash
+# Build in release mode
+cargo build --release
+
+# Run tests with release build
+php -d extension=target/release/libicu4x.so tests/basic_test.php
 ```
 
 ## Performance
@@ -196,10 +262,12 @@ The extension is built on Rust and ICU4X, providing:
 ## Supported Unicode Features
 
 - ✅ Grapheme cluster segmentation
+- ✅ East Asian Width property calculation
 - ✅ Emoji sequences (including ZWJ sequences)
 - ✅ Complex scripts (Arabic, Devanagari, etc.)
 - ✅ Regional indicator sequences (flag emojis)
 - ✅ Modifier sequences
+- ✅ Locale-aware ambiguous character handling
 
 ## Contributing
 
