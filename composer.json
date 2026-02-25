@@ -1,0 +1,14 @@
+{
+  "name": "masakielastic/icu4x",
+  "description": "ICU4X PHP extension for Unicode text segmentation and East Asian Width, built with ext-php-rs",
+  "version": "0.1.0",
+  "type": "php-ext",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1"
+  },
+  "php-ext": {
+    "extension-name": "icu4x",
+    "build-path": "pie"
+  }
+}
