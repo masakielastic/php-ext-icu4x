@@ -13,33 +13,43 @@ A PHP extension for Unicode text segmentation using ICU4X, built with ext-php-rs
 
 ## Installation
 
-### Prerequisites
+### Via PIE (Recommended)
+
+[PIE](https://github.com/php/pie) (PHP Installer for Extensions) を使うと packagist.org から直接インストールできます。
+
+```bash
+pie install masakielastic/icu4x
+```
+
+php.ini に拡張を追加します:
+
+```ini
+extension=icu4x
+```
+
+### Manual Build
+
+#### Prerequisites
 
 - Rust 1.70+
-- PHP 8.0+
-- ICU4X 2.0
+- PHP 8.1+
 - ext-php-rs 0.14.0
-
-### Building
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/masakielastic/php-ext-icu4x.git
 cd php-ext-icu4x
 ```
 
-2. Build the extension:
+2. Build and install the extension:
 ```bash
-./build.sh
+cargo build --release
+sudo cp target/release/libicu4x.so $(php-config --extension-dir)/icu4x.so
 ```
 
-3. Install the extension:
+3. Add to php.ini:
 ```bash
-# Copy the shared library to your PHP extensions directory
-sudo cp target/release/libicu4x.so /usr/lib/php/extensions/
-
-# Add to php.ini
-echo "extension=icu4x" >> /etc/php/8.2/cli/php.ini
+echo "extension=icu4x" >> $(php-config --ini-path)/php.ini
 ```
 
 ## Usage
@@ -228,6 +238,9 @@ echo "\n"; // 2222
 Run the test suite:
 
 ```bash
+# Build in debug mode
+cargo build
+
 # Basic functionality test
 php -d extension=target/debug/libicu4x.so tests/basic_test.php
 
@@ -236,9 +249,6 @@ php -d extension=target/debug/libicu4x.so tests/function_test.php
 
 # East Asian Width test
 php -d extension=target/debug/libicu4x.so tests/eaw_width_test.php
-
-# Demo scripts
-php -d extension=target/debug/libicu4x.so demo_eaw_width.php
 ```
 
 For release builds:
@@ -284,12 +294,11 @@ The extension is built on Rust and ICU4X, providing:
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Install dependencies
+# Build
 cargo build
 
 # Run tests
-./build.sh
-php -d extension=target/release/libicu4x.so tests/basic_test.php
+php -d extension=target/debug/libicu4x.so tests/basic_test.php
 ```
 
 ## Commit Message Convention
