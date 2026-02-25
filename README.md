@@ -15,13 +15,13 @@ A PHP extension for Unicode text segmentation using ICU4X, built with ext-php-rs
 
 ### Via PIE (Recommended)
 
-[PIE](https://github.com/php/pie) (PHP Installer for Extensions) を使うと packagist.org から直接インストールできます。
+[PIE](https://github.com/php/pie) (PHP Installer for Extensions) allows you to install this extension directly from packagist.org.
 
 ```bash
 pie install masakielastic/icu4x
 ```
 
-php.ini に拡張を追加します:
+Then add the extension to your php.ini:
 
 ```ini
 extension=icu4x
